@@ -220,7 +220,7 @@ export default {
 }
 .account_money span{
   margin-left: 50px;
-  font-size: 28px;
+  font-size: 35px;
   color: #fff
 }
 .account_money p {
@@ -240,7 +240,7 @@ export default {
 }
 .subsidy span{
   margin-left: 35px;
-  font-size: 24px;
+  font-size: 30px;
   color: #fff
 }
 .subsidy p{
@@ -250,7 +250,7 @@ export default {
 }
 .cash span{
   margin-left: 40px;
-  font-size: 24px;
+  font-size: 30px;
   color: #fff
 }
 .cash p{
