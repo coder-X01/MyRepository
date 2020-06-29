@@ -37,7 +37,7 @@ export default {
       // let url = 'http://baidu.com'
       console.log(url)
       if (!url) {
-        MessageBox.alert('链接出错', '提示')
+        MessageBox.alert('功能正在开发中', '提示')
         this.$router.push({path: '/home'})
       } else {
         this.URL = url

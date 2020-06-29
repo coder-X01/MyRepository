@@ -89,10 +89,9 @@ export default{
 </script>
 <style scoped="scoped">
 .mint-header{
-  padding-top: 40px;
   background-color: #ff5b00;
-  height: 130px;
-  line-height: 130px;
+  height: 90px;
+  line-height: 90px;
   font-size: 34px;
 }
 .mintui mintui-back{
