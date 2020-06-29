@@ -29,7 +29,7 @@
       </div>
       <div style="position: relative">
         <span class="pwrod">&nbsp;</span>
-        <input type="password" v-model="userPword" class="checkNum" placeholder="密码"/>
+        <input type="password" v-model="userPword" class="checkNum" placeholder="密码" @change='jiamiMima'/>
       </div>
       <div class="change_box" style="position: relative" >
         <p @click = 'toggle'>{{tip}}</p>
@@ -59,27 +59,37 @@ export default {
       cidNo: '',
       userPword: '',
       campusId: '',
-      loginMode: '1'
+      loginMode: '1',
+      a: '',
+      b: [],
+      CCB_PWD_MAP_GIGEST: '',
+      keyjiami: 0
     }
   },
   methods: {
     init () {
       console.log(this.$route)
+      this.loginMode = this.$route.query.loginMode
       this.campusId = this.$route.query.campusId
       let that = this
-      let params = {'TXCODE': 'ST0024', 'ENTRYID': this.campusId}
-      this.ajax('get', params, function (res) {
-        that.loginMode = res.data.loginMode
-        if (that.loginMode === '1') {
-          that.cur = '1'
-          that.tip = '手机验证码登陆'
-        }
-      }, function (err) { console.log(err) }, this.testURL)
-    },
-    // 加密
-    jiamiMima () {
-      // let a = 'S000000000000000'
-      // let b = 'S000000000000000'
+      if (this.loginMode === '1') {
+        this.cur = '1'
+        this.tip = '手机验证码登陆'
+        let mapdata = {'TXCODE': 'ST0041'}
+        this.ajax('get', mapdata, function (res) {
+          that.a = res.data.key
+          let keymap = new Array(res.data.mapString.length)
+          console.log(keymap.length)
+          for (let index = 0; index < keymap.length; index++) {
+            keymap[index] = res.data.mapString.charAt(index)
+          }
+          that.b = keymap
+          console.log(that.a)
+          console.log('======')
+          console.log(that.b)
+          // res.data
+        }, function (err) { console.log(err) }, this.testURL)
+      }
     },
     // 保存数据
     saveData (res) {
@@ -148,30 +158,17 @@ export default {
           Toast('请输入验证码！')
           return false
         }
-        let params = {'TXCODE': 'ST0001', 'mobile': this.mobilePhone, 'entryCampusId': this.campusId}
+        let params = {'TXCODE': 'ST0001', 'mobile': this.mobilePhone, 'entryCampusId': this.campusId, 'SMScode': this.checkNum}
         this.ajax('get', params, function (res) {
-          let fbyqCustList = res.data.fbyqCustList
-          if (res.data.size === 0) {
-            //  没有数据时
-            alert('您的手机号暂未绑定智慧食堂,请联系管理员')
-          } else if (res.data.size === 1) {
-            //  只有一条数据时
-            let campusId = fbyqCustList[0].campusId
-            let data = {'TXCODE': 'ST0007', 'mobile': that.mobilePhone, 'SMScode': that.checkNum, 'campusId': campusId}
-            that.ajax('get', data, function (res) {
-              // 登陆成功保存数据
-              that.saveData(res)
-              localStorage.setItem('LOGINTYPE', 0)
-              that.$router.push({path: '/home'})
-            }, function (err) { console.log(err) }, that.testURL)
+          if (res.data.errCode === '10000') {
+            that.saveData(res)
+            that.$router.push({path: '/home'})
           } else {
-            // 多条数据时
-            localStorage.setItem('SMScode', that.checkNum)
-            localStorage.setItem('mobile', that.mobilePhone)
-            that.$router.push({path: '/SelectPark', query: {fbyqCustList: fbyqCustList}})
+            alert(res.data.errMsg)
           }
         }, function (err) { console.log(err) }, this.testURL)
       } else {
+        // 账号密码登陆
         if (!this.cidNo) {
           Toast('请输入员工编号！')
           return false
@@ -180,22 +177,87 @@ export default {
           Toast('请输入密码！')
           return false
         }
-        // 账号密码登陆
-        let params = {'TXCODE': 'ST0020', 'CIDNO': this.cidNo, 'PASSWORD': this.userPword, 'CAMPUS_ID': this.campusId, LOGINTYPE: 1}
+        if (this.userPword.length < 6) {
+          Toast('密码最低为6位')
+          return false
+        }
+        let params = {'TXCODE': 'ST0025', 'CIDNO': this.cidNo, 'CAMPUS_ID': this.campusId, 'LOGPASS': this.userPword, 'CCB_PWD_MAP_GIGEST': this.CCB_PWD_MAP_GIGEST}
         this.ajax('get', params, function (res) {
           if (res.data.errCode === '10000') {
-            let params = {'TXCODE': 'ST0025', 'CIDNO': that.cidNo, 'PASSWORD': that.userPword, 'CAMPUS_ID': that.campusId, LOGINTYPE: 1}
-            that.ajax('get', params, function (res) {
-              that.saveData(res)
-              let password = res.data.password
-              localStorage.setItem('LOGINTYPE', 1)
-              localStorage.setItem('PASSWORD', password)
-              that.$router.push({path: '/home'})
-            }, function (err) { console.log(err) }, that.testURL)
+            that.saveData(res)
+            that.$router.push({path: '/home'})
           } else {
             alert(res.data.errMsg)
           }
         }, function (err) { console.log(err) }, this.testURL)
+      }
+    },
+    // 加密
+    jiamiMima () {
+      console.log(this.userPword)
+      let a = this.a
+      let b = this.b
+      let jiami = 0
+      let keyjiami = this.keyjiami
+      let ifUseYinshe = 1
+      let CCBPWDMAPGIGESTVALUE = ''
+      for (let n = 0; n < a.length; n++) {
+        CCBPWDMAPGIGESTVALUE = CCBPWDMAPGIGESTVALUE + a[n]
+      }
+      let newValue = this.userPword
+      let specialChar = 0
+      if (keyjiami === 0 && jiami === 0 && ifUseYinshe === 1) {
+        let everyone = ''
+        let afterPass = ''
+        for (let i = 0; i < newValue.length; i++) {
+          if (specialChar === 1) {
+            break
+          }
+          everyone = newValue.charAt(i)
+          for (let j = 0; j < ((b.length) / 2); j++) {
+            if (everyone === b[2 * j]) {
+              afterPass = afterPass + b[2 * j + 1]
+              break
+            }
+            if (j === (b.length) / 2 - 1) {
+              if (everyone !== b[2 * j]) {
+                specialChar = 1
+                break
+              }
+            }
+          }
+        }
+        if (specialChar === 0) {
+          this.userPword = afterPass
+        } else {
+          let ret = ''
+          afterPass = ''
+          for (let i = 0; i < newValue.length; i++) {
+            let c = newValue.substr(i, 1)
+            let ts = escape(c)
+            if (ts.substring(0, 2) === '%u') {
+              ret = ret + ts.replace('%u', '(^?)')
+            } else {
+              ret = ret + c
+            }
+          }
+          this.userPword = ret
+          for (let n = 0; n < ret.length; n++) {
+            everyone = ret.charAt(n)
+            for (let w = 0; w < ((b.length) / 2); w++) {
+              if (everyone === b[2 * w]) {
+                afterPass = afterPass + b[2 * w + 1]
+                break
+              }
+            }
+          }
+          this.userPword = afterPass
+        }
+        this.keyjiami = 1
+        console.log(this.userPword)
+      }
+      if (ifUseYinshe === 1) {
+        this.CCB_PWD_MAP_GIGEST = CCBPWDMAPGIGESTVALUE + '|LOGPASS'
       }
     }
   },

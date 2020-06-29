@@ -50,7 +50,6 @@ export default{
         this.ajax('get', params, function (res) {
           // 登陆成功保存数据
           that.saveData(res)
-          localStorage.setItem('LOGINTYPE', 0)
           that.$router.push({path: '/home'})
         }, function (err) { console.log(err) }, this.testURL)
       }

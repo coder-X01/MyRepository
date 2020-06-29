@@ -44,6 +44,7 @@
         popup-transition="popup-fade">
         <slot name="qr_box1">
           <canvas id="QRCode"></canvas>
+          <span class="qrtitle">请扫二维码支付餐费</span>
         </slot>
       </mt-popup>
    </div>
@@ -88,23 +89,7 @@ export default {
     },
     // 初始化
     init () {
-      let that = this
-      let mobilePhone = localStorage.getItem('mobile')
-      let campusId = localStorage.getItem('campusId')
-      let cidNo = localStorage.getItem('cidNo')
-      let PASSWORD = localStorage.getItem('PASSWORD')
-      let LOGINTYPE = localStorage.getItem('LOGINTYPE')
-      let params = {'TXCODE': 'ST0020', 'mobile': mobilePhone, 'CAMPUS_ID': campusId, 'CIDNO': cidNo, 'PASSWORD': PASSWORD, 'LOGINTYPE': LOGINTYPE}
-      this.ajax('get', params, function (res) {
-        if (res.data.errCode === '10000') {
-          that.getData()
-        } else {
-          alert(res.data.errMsg)
-          let campusId = localStorage.getItem('campusId')
-          localStorage.clear()
-          this.$router.push({path: '/login', query: {'campusId': campusId}})
-        }
-      }, function (err) { console.log(err) }, this.testURL)
+      this.getData()
     },
     // 获取数据
     getData () {
@@ -133,7 +118,7 @@ export default {
       let that = this
       let campusId = localStorage.getItem('campusId')
       let cidNo = localStorage.getItem('cidNo')
-      console.log(campusId)
+      // console.log(campusId)
       let params = {'TXCODE': 'ST0021', 'CAMPUS_ID': campusId, 'CIDNO': cidNo}
       this.ajax('get', params, function (res) {
         // 生成的二维码为URL地址
@@ -305,5 +290,9 @@ export default {
 }
 .homepage{
   height: 100%;
+}
+.qrtitle{
+  border-top: 1px solid gray;
+  font-size: 50px;
 }
 </style>

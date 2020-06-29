@@ -51,16 +51,6 @@ export default new Router({
       component: resolve => require(['@/components/pages/UdDataMobile'], resolve)
     },
     {
-      path: '/test',
-      name: 'test',
-      component: resolve => require(['@/components/pages/test'], resolve)
-    },
-    {
-      path: '/qr',
-      name: 'qr',
-      component: resolve => require(['@/components/pages/qr'], resolve)
-    },
-    {
       path: '/pay',
       name: 'pay',
       component: resolve => require(['@/components/pages/pay'], resolve)
