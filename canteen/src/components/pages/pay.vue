@@ -48,33 +48,7 @@
         <div class="content-table">
           <mt-field label="其他金额" placeholder="请输入金额" v-model="username"></mt-field>
           <mt-radio title="请选择支付方式" v-model="payValue" :options="['龙支付']"></mt-radio>
-          <!--
-                <table>
-                    <tr>
-                        <td><span>其他金额：</span></td>
-                        <td><el-input placeholder="请输入其他金额" v-model="input"  class="pay-input"  clearable></el-input></td>
-                    </tr>
-                    <tr>
-                        <td><span>请选择支付方式：</span><br></td>
-                        <td><span>龙支付</span></td>
-                    </tr>
-                </table>
-          -->
         </div>
-
-        <!--
-            <div class="other-recharge">
-               <span>其他金额：</span>
-               <el-input placeholder="请输入其他金额" v-model="input"  class="pay-input"  clearable></el-input>
-         
-                   <span style="color:gray">请输入其他金额</span>  
-              
-            </div>
-            <div class="pay-way">
-               <span>请选择支付方式：</span><br>
-               <span>龙支付</span>  
-            </div>
-        -->
       </div>
     </div>
     <div class="pay-footer">
@@ -85,31 +59,31 @@
   </div>
 </template>
 <script>
-import $ from "jquery";
+import $ from 'jquery'
 export default {
-  data() {
+  data () {
     return {
-      username: "",
-      payValue: "",
+      username: '',
+      payValue: '',
       selected: false
-    };
+    }
   },
-  mounted() {
-    this.initEvent();
+  mounted () {
+    this.initEvent()
   },
   methods: {
-    initEvent() {
-      buttonEvent();
+    initEvent () {
+      buttonEvent()
     }
   }
-};
-function buttonEvent() {
-  var buttonList = $(".mint-button--normal");
+}
+function buttonEvent () {
+  var buttonList = $('.mint-button--normal')
   for (var i = 0; i < buttonList.length; i++) {
-    buttonList[i].onclick = function() {
-      $(".mint-button--normal:not(this)").css("background-color", "white");
-      $(this).css("background-color", "#FF6600");
-    };
+    buttonList[i].onclick = function () {
+      $('.mint-button--normal:not(this)').css('background-color', 'white')
+      $(this).css('background-color', '#FF6600')
+    }
   }
 }
 </script>
