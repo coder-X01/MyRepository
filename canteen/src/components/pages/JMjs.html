@@ -1,0 +1,131 @@
+<script>
+  var jiami = 0; 
+  var keyjiami = 0; 
+  var keyjiamiName = "0"; 
+  function jiamiMimas(mimaName) {
+    keyjiamiName = "," + keyjiamiName; 
+    var everyMimaName = mimaName.split(','); 
+    for (var j = 0; j < everyMimaName.length; j++) {
+        if (keyjiamiName.indexOf("," + everyMimaName[j] + ",") != -1) { jiamiEveryMimas(everyMimaName[j]); }
+    } 
+    if (ifUseYinshe == 1) {
+        var ccbPwbMapGigest = document.getElementById("CCB_PWD_MAP_GIGEST"); 
+        var jimaPass = ''; 
+        for (var n = 0; n < everyMimaName.length; n++) {
+            jimaPass = document.getElementById(everyMimaName[n]); 
+            if (n == 0) { 
+              ccbPwbMapGigest.value = a + "|" + jimaPass.name;  
+            } else { ccbPwbMapGigest.value = ccbPwbMapGigest.value + "," + jimaPass.name; }
+        }
+      } 
+    keyjiamiName = "0";
+  } 
+  function jiamiEveryMimas(mimaName) {
+    var jimaPass = document.getElementById(mimaName); var newValue = jimaPass.value; 
+    var specialChar = 0; 
+    if (ifUseYinshe == 1) {
+      var everyone = ''; var afterPass = ''; 
+      for (var i = 0; i < newValue.length; i++) {
+        if (specialChar == 1) { break; } 
+        everyone = newValue.charAt(i); 
+        for (var j = 0; j < ((b.length) / 2); j++) {
+          if (everyone == b[2 * j]) { afterPass = afterPass + b[2 * j + 1]; break; } 
+          if (j == (b.length) / 2 - 1) { if (everyone != b[2 * j]) { specialChar = 1; break; } }
+        }
+      } 
+      if(specialChar == 0) { jimaPass.value = afterPass; } else {
+        var ret = ""; afterPass = ''; 
+        for (i = 0; i < newValue.length; i++) {
+          var c = newValue.substr(i, 1); 
+          var ts = escape(c); 
+          if (ts.substring(0, 2) == "%u") { ret = ret + ts.replace("%u", "(^?)"); } else { ret = ret + c; }
+        } 
+        jimaPass.value = ret; 
+        for (var n = 0; n < ret.length; n++) {
+          everyone = ret.charAt(n); 
+          for (var w = 0; w < ((b.length) / 2); w++) {
+            if (everyone == b[2 * w]) {
+              afterPass = afterPass +
+              b[2 * w + 1]; break;
+            }
+          }
+        } 
+        jimaPass.value = afterPass;
+      } 
+      keyjiami = 1;
+    }
+  }
+  function keyJiami(jiamiObject) {
+    var jiamiObjectname = jiamiObject.id; 
+    var jiamiObjectnameBefore = jiamiObjectname + ','; 
+    var jiamiObjectnameAll = ',' + jiamiObjectname + ','; 
+    if (keyjiamiName == "0") { keyjiamiName = jiamiObjectname + ','; return; } 
+    if (keyjiamiName.indexOf(jiamiObjectnameBefore) == 0) { return; } 
+    if (keyjiamiName.indexOf(jiamiObjectnameAll) != -1) { return; } 
+    keyjiamiName = keyjiamiName + jiamiObjectname + ',';
+  } 
+  function getStartPassword(jiamiPassword) {
+    if
+      (ifUseYinshe == 0) { return jiamiPassword; } var everyone = ''; var afterPass = ''; for (var i = 0; i < jiamiPassword.length; i++) {
+      everyone = jiamiPassword.charAt(i); for (var j = 0; j < ((b.length) / 2); j++) {
+        if (everyone == b[2 * j + 1]) {
+          afterPass = afterPass
+          + b[2 * j]; break;
+        } if (j == (b.length) / 2 - 1) { if (everyone != b[2 * j]) { afterPass = afterPass + everyone; break; } }
+      }
+    } var
+      jiemiValue = ""; var everyafter = ""; for (var i = 0; i < afterPass.length; i++) {
+        everyafter = afterPass.substr(i, 1); if
+          (everyafter == '(' && afterPass.substr(i, 4) == "(^?)" && i + 7 < afterPass.length) {
+            jiemiValue = jiemiValue + unescape("%u"
+              + afterPass.substr(i + 4, 4)); i = i + 7;
+        } else { jiemiValue = jiemiValue + everyafter; }
+      } return jiemiValue;
+  } function
+    twiceJiamiPassword(passwordid, sequenceName, jiamiYinsheName) {
+      if (ifUseYinshe == 0) { return; } var
+        ccbPwbMapGigest = document.getElementById("CCB_PWD_MAP_GIGEST"); var jimaPass = ''; var
+          everyMimaName = passwordid.split(','); for (var n = 0; n < everyMimaName.length; n++) {
+      jimaPass = document.getElementById(everyMimaName[n]); if (n == 0) { ccbPwbMapGigest.value = sequenceName + "|" + jimaPass.name; } else { ccbPwbMapGigest.value = ccbPwbMapGigest.value + "," + jimaPass.name; }
+    } var everyPasswordid = passwordid.split(','); for (var
+      j = 0; j < everyMimaName.length; j++) { jiamiTwiceEveryMimas(everyPasswordid[j], jiamiYinsheName); }
+  } function
+    jiamiTwiceEveryMimas(mimaName, jiamiYinshe) {
+      var jimaPass = document.getElementById(mimaName); var
+        newValue = jimaPass.value; newValue = getStartPassword(newValue); var specialChar = 0; if (ifUseYinshe == 1) {
+          var everyone = ''
+          ; var afterPass = ''; for (var i = 0; i < newValue.length; i++) {
+            if (specialChar == 1) { break; } everyone = newValue.charAt(i); for
+              (var j = 0; j < ((jiamiYinshe.length) / 2); j++) {
+                if (everyone == jiamiYinshe[2 * j]) {
+                  afterPass = afterPass +
+                  jiamiYinshe[2 * j + 1]; break;
+                } if (j == (jiamiYinshe.length) / 2 - 1) {
+                  if (everyone != jiamiYinshe[2 * j]) { specialChar = 1; break; }
+                }
+            }
+          } if (specialChar == 0) { jimaPass.value = afterPass; } else {
+            var ret = ""; afterPass = ''
+              ; for (i = 0; i < newValue.length; i++) {
+                var c = newValue.substr(i, 1); var ts = escape(c); if (ts.substring(0, 2) == "%u") {
+                  ret = ret +
+                  ts.replace("%u", "(^?)");
+                } else { ret = ret + c; }
+              } jimaPass.value = ret; for (var n = 0; n < ret.length; n++) {
+              everyone = ret.charAt(n); for (var w = 0; w < ((jiamiYinshe.length) / 2); w++) {
+                if (everyone == jiamiYinshe[2 * w]) { afterPass = afterPass + jiamiYinshe[2 * w + 1]; break; }
+              }
+            } jimaPass.value = afterPass;
+          }
+        }
+  } function jiamiMimas1(mimaName) {
+    keyjiamiName = "," + keyjiamiName; var everyMimaName = mimaName.split(','); for (var j = 0; j < everyMimaName.length; j++) { if (keyjiamiName.indexOf("," + everyMimaName[j] + ",") != -1) { jiamiEveryMimas(everyMimaName[j]); } } if
+      (ifUseYinshe == 1) {
+        var ccbPwbMapGigest = document.getElementById("CCB_PWD_MAP_GIGEST"); var jimaPass = ''; for (var n = 0; n
+          < everyMimaName.length; n++) {
+            jimaPass = document.getElementById(everyMimaName[n]); if
+              (ccbPwbMapGigest.value.indexOf("|") == -1) { ccbPwbMapGigest.value = a + "|" + jimaPass.name; } else { ccbPwbMapGigest.value = ccbPwbMapGigest.value + "," + jimaPass.name; }
+        }
+    } keyjiamiName = "0";
+  }
+</script>

@@ -1,0 +1,62 @@
+<script language="javascript">
+    var jiami = 0;
+    var keyjiami = 0;
+    var ifUseYinshe = 1;
+    function jiamiMima(){   
+        var CCBPWDMAPGIGESTVALUE = '';
+        for(var n=0;n<a.length;n++) {
+          CCBPWDMAPGIGESTVALUE = CCBPWDMAPGIGESTVALUE + a[n];
+        }
+        var newValue = this.userPword;
+        var specialChar = 0;
+        if(keyjiami == 0 && jiami == 0 && ifUseYinshe == 1){
+          var everyone = '';
+          var afterPass = '';
+          for (var i=0;i<newValue.length;i++ ) {
+              if (specialChar == 1) {
+                  break;
+              }
+              everyone = newValue.charAt(i);
+              for (var j =0;j<((b.length)/2);j++) {
+                  if (everyone == b[2*j]) {
+                      afterPass = afterPass + b[2*j+1];
+                      break;
+                  }
+                  if (j == (b.length)/2 - 1) {
+                      if (everyone != b[2*j]) {
+                          specialChar = 1;
+                          break;
+                      }
+                  }
+              }
+          }
+          if (specialChar == 0) {
+              this.userPword = afterPass;
+          } else {
+              var ret = "";
+              afterPass = '';
+              for(i=0;i<newValue.length;i++) {
+                var c = newValue.substr(i,1);
+                var ts = escape(c);
+                if(ts.substring(0,2) == "%u") {
+                    ret = ret + ts.replace("%u","(^?)");
+                } else {
+                    ret = ret + c;
+                }
+              }
+              this.userPword = ret;
+              for (var n=0;n<ret.length;n++ ) {
+                  everyone = ret.charAt(n);
+                    for (var w =0;w<((b.length)/2);w++) {
+                        if (everyone == b[2*w]) {
+                            afterPass = afterPass + b[2*w+1];
+                            break;
+                        }
+                  }
+              }
+              this.userPword = afterPass;
+          }
+          keyjiami = 1;
+        }
+    }
+    </script>
