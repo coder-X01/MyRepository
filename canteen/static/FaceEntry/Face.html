@@ -200,7 +200,8 @@
             // alert("数据已提交，请根据返回值做相应提示。");
             console.log(res)
             if (res.resCode == 1) {
-              this.MessageBox.alert('链接出错', '提示')
+              this.MessageBox.alert('成功提交', '提示')
+              
             } else {
               alert(res.errorMsg)
             }
