@@ -86,7 +86,11 @@ export default{
       let cidNo = localStorage.getItem('cidNo')
       let params = {'TXCODE': 'ST0006', 'mobile': this.mobilePhone, 'SMScode': this.checkNum, 'campusId': campusId, 'cidNo': cidNo}
       this.ajax('get', params, function (res) {
-        that.$router.push({path: '/home'})
+        if (res.data.errCode === '10000') {
+          that.$router.push({path: '/home'})
+        } else {
+          alert(res.data.errMsg)
+        }
       }, function (err) { console.log(err) }, this.testURL)
     }
   },
@@ -96,10 +100,9 @@ export default{
 </script>
 <style scoped="scoped">
 .mint-header{
-  padding-top: 40px;
   background-color: #ff5b00;
-  height: 130px;
-  line-height: 130px;
+  height: 90px;
+  line-height: 90px;
   font-size: 34px;
 }
 .mintui mintui-back{
