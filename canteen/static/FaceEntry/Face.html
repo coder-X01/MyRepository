@@ -201,7 +201,7 @@
             console.log(res)
             if (res.resCode == 1) {
               this.MessageBox.alert('成功提交', '提示')
-              
+           
             } else {
               alert(res.errorMsg)
             }
@@ -214,6 +214,8 @@
         });
         //暂时效果放这里  上线放回调函数
         isUpload=true;
+        alert('成功提交', '提示');
+        window.location.href="http://localhost:8080/category/1#/home";
         $("#uploadConfirm").css("background-color","gray");
         return false;
       }
