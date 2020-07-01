@@ -27,77 +27,77 @@
 </template>
 
 <script>
-import VueDragResize from "vue-drag-resize";
-import { MessageBox } from "mint-ui";
+import VueDragResize from 'vue-drag-resize'
+import { MessageBox } from 'mint-ui'
 export default {
-  name: "myframe",
+  name: 'myframe',
   components: {
     VueDragResize
   },
-  data() {
+  data () {
     return {
-      URL: "",
+      URL: '',
       iframeState: true,
       goBackState: true,
       sTime: null,
       eTime: null
-    };
+    }
   },
   methods: {
-    test() {
-      console.log("父盒子内容");
+    test () {
+      console.log('父盒子内容')
     },
-    goBack() {
-      this.$router.go(-1);
+    goBack () {
+      this.$router.go(-1)
     },
-    init() {
-      let that = this;
-      that.myModal.downLoad(that, true);
-      let oIframe = document.getElementById("show-iframe");
-      let deviceWidth = document.documentElement.clientWidth;
-      let deviceHeight = document.documentElement.clientHeight;
-      oIframe.style.width = deviceWidth + "px";
-      oIframe.style.height = deviceHeight + "px";
+    init () {
+      let that = this
+      that.myModal.downLoad(that, true)
+      let oIframe = document.getElementById('show-iframe')
+      let deviceWidth = document.documentElement.clientWidth
+      let deviceHeight = document.documentElement.clientHeight
+      oIframe.style.width = deviceWidth + 'px'
+      oIframe.style.height = deviceHeight + 'px'
       // console.log(this.$route.query)
       // let url = this.$route.query.target
-      let url = "http://www.baidu.com";
-      console.log(url);
+      let url = 'http://www.baidu.com'
+      console.log(url)
       if (!url) {
-        MessageBox.alert("链接出错", "提示");
-        this.$router.push({ path: "/home" });
+        MessageBox.alert('链接出错', '提示')
+        this.$router.push({ path: '/home' })
       } else {
-        this.URL = url;
-        const iframe = document.querySelector("#show-iframe");
+        this.URL = url
+        const iframe = document.querySelector('#show-iframe')
         iframe.onload = () => {
-          console.log("加载完成"); // 这样每次都会触发
-          that.myModal.downLoad(that, false);
-        };
+          console.log('加载完成') // 这样每次都会触发
+          that.myModal.downLoad(that, false)
+        }
       }
     },
-    startMove(evt) {
+    startMove (evt) {
       //   debugger;
-      this.sp = evt.currentTarget.offsetTop;
+      this.sp = evt.currentTarget.offsetTop
       // this.sTime=null
-      this.eTime = null;
-      this.sTime = new Date();
+      this.eTime = null
+      this.sTime = new Date()
     },
-    endMove() {
+    endMove () {
       if (this.sTime != null && this.eTime == null) {
-        this.eTime = new Date();
-        var diffTime = this.eTime - this.sTime;
+        this.eTime = new Date()
+        var diffTime = this.eTime - this.sTime
         // debugger;
         if (diffTime < 2000) {
-          this.sTime = null;
-          this.eTime = null;
-          this.goBack();
+          this.sTime = null
+          this.eTime = null
+          this.goBack()
         }
       }
     }
   },
-  mounted() {
-    this.init();
+  mounted () {
+    this.init()
   }
-};
+}
 </script>
 <style scoped>
 .back_box {
