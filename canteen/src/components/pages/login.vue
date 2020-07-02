@@ -44,7 +44,7 @@
 
 <script>
 
-import { Toast } from 'mint-ui'
+import { MessageBox } from 'mint-ui'
 
 export default {
   name: 'login',
@@ -118,11 +118,11 @@ export default {
     getCode () {
       let TEL_REGEXP = /^1([38]\d|5[0-35-9]|7[3678])\d{8}$/
       if (!this.mobilePhone) {
-        Toast('请输入手机号！')
+        MessageBox.alert('请输入手机号！', '提示')
         return false
       }
       if (!TEL_REGEXP.test(this.mobilePhone)) {
-        Toast('请输入正确的手机号！')
+        MessageBox.alert('请输入正确的手机号！', '提示')
         return false
       } else {
         let count = 60
@@ -147,15 +147,15 @@ export default {
       if (this.cur === '0') {
         let TEL_REGEXP = /^1([38]\d|5[0-35-9]|7[3678])\d{8}$/
         if (!this.mobilePhone) {
-          Toast('请输入手机号！')
+          MessageBox.alert('请输入手机号！', '提示')
           return false
         }
         if (!TEL_REGEXP.test(this.mobilePhone)) {
-          Toast('请输入正确的手机号！')
+          MessageBox.alert('请输入正确的手机号！', '提示')
           return false
         }
         if (!this.checkNum) {
-          Toast('请输入验证码！')
+          MessageBox.alert('请输入验证码！', '提示')
           return false
         }
         let params = {'TXCODE': 'ST0001', 'mobile': this.mobilePhone, 'entryCampusId': this.campusId, 'SMScode': this.checkNum}
@@ -170,15 +170,15 @@ export default {
       } else {
         // 账号密码登陆
         if (!this.cidNo) {
-          Toast('请输入员工编号！')
+          MessageBox.alert('请输入员工编号！', '提示')
           return false
         }
         if (!this.userPword) {
-          Toast('请输入密码！')
+          MessageBox.alert('请输入密码！', '提示')
           return false
         }
         if (this.userPword.length < 6) {
-          Toast('密码最低为6位')
+          MessageBox.alert('密码最低为6位', '提示')
           return false
         }
         let params = {'TXCODE': 'ST0025', 'CIDNO': this.cidNo, 'CAMPUS_ID': this.campusId, 'LOGPASS': this.userPword, 'CCB_PWD_MAP_GIGEST': this.CCB_PWD_MAP_GIGEST}
@@ -291,6 +291,7 @@ export default {
   color: white;
   height: 100px;
   border-radius: 56px;
+  outline: none;
 }
 .yzm{
   background: url("../../../static/image/yzm.png");
@@ -321,6 +322,7 @@ export default {
   border-radius: 56px;
   background-color: #F6F4F5;
   font-size: 36px;
+  outline: none;
 }
 .box button{
   border: none;

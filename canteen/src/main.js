@@ -27,9 +27,9 @@ import myModal from './methods/myModal.js'
 Vue.prototype.myModal = myModal
 
 // 引入vconsole
-// import Vconsole from 'vconsole'
-// const vConsole = new Vconsole()
-// Vue.use(vConsole)
+import Vconsole from 'vconsole'
+const vConsole = new Vconsole()
+Vue.use(vConsole)
 
 /* eslint-disable no-new */
 new Vue({

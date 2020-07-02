@@ -59,8 +59,8 @@ export default {
       oIframe.style.width = deviceWidth + 'px'
       oIframe.style.height = deviceHeight + 'px'
       // console.log(this.$route.query)
-      // let url = this.$route.query.target
-      let url = 'http://www.baidu.com'
+      let url = this.$route.query.target
+      // let url = 'http://www.baidu.com'
       console.log(url)
       if (!url) {
         MessageBox.alert('链接出错', '提示')

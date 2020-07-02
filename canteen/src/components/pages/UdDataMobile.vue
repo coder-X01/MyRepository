@@ -88,6 +88,7 @@ export default{
       this.ajax('get', params, function (res) {
         if (res.data.errCode === '10000') {
           that.$router.push({path: '/home'})
+          localStorage.setItem('mobile', that.mobilePhone)
         } else {
           alert(res.data.errMsg)
         }
