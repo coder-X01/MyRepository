@@ -358,12 +358,12 @@ html {
     width: 2.3rem;
     height: 2.3rem;
     position: absolute;
-    top: 0.17rem;
+    top: 0rem;
     left: 0.15rem; }
 
 .confirm_content img {
     width: 100%;
-    height: 110%; }
+    height: 120%; }
 
 .confirm_rightbutton {
     position: relative;

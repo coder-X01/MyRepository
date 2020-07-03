@@ -166,14 +166,11 @@
       });
 
       window.faceOpen = function () {
+        //debugger;
         if(isUpload){
           return;
         }
         $("body").showLoading();
-        setTimeout(function(){
-          $("body").hideLoading();
-        },600);
-
         var campusId = localStorage.getItem('campusId')
         var cidNo = localStorage.getItem('cidNo')
         var mobile = localStorage.getItem('mobile')
@@ -197,26 +194,33 @@
           contentType: 'application/x-www-form-urlencoded', // 告诉jQuery不要去设置Content-Type请求头
           async: false,             
           success: function (res) {
-            // alert("数据已提交，请根据返回值做相应提示。");
-            console.log(res)
-            if (res.resCode == 1) {
-              this.MessageBox.alert('成功提交', '提示')
-           
+              // alert("数据已提交，请根据返回值做相应提示。");
+              $("body").hideLoading();
+              console.log(res)
+              if (res.resCode == 1) {
+              this.MessageBox.alert('成功提交', '提示')    
+              //暂时效果放这里  上线放回调函数
+              isUpload=true;
+              alert('成功提交', '提示');
+            //  window.location.href="http://localhost:8080/category/1#/home";
+              window.location.href="http://124.127.94.47/CCBIS/zhstPage/index.html#/home";
+              
+              $("#uploadConfirm").css("background-color","gray");  
             } else {
-              alert(res.errorMsg)
+             // alert(res.errorMsg)
+             alert("提交失败"+res.errorMsg);
             }
           },
           error: function (XMLHttpRequest, textStatus, errorThrown) {
+           // debugger;
+            alert("提交失败请检查联系满客宝客服");
+            $("body").hideLoading();
             console.log(XMLHttpRequest)
             console.log(textStatus)
             console.log(errorThrown)
           }
         });
-        //暂时效果放这里  上线放回调函数
-        isUpload=true;
-        alert('成功提交', '提示');
-        window.location.href="http://localhost:8080/category/1#/home";
-        $("#uploadConfirm").css("background-color","gray");
+  
         return false;
       }
     });
