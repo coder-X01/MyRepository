@@ -169,7 +169,7 @@ export default {
 .user_qr{
   display: flex;
   justify-content:space-between;
-  padding-top: 70px;
+  padding-top: 40px;
   padding-left: 15px;
   padding-right: 15px;
 }
@@ -204,7 +204,7 @@ export default {
   margin-top: 25px;
 }
 .account_money span{
-  margin-left: 50px;
+  margin-left: 20px;
   font-size: 35px;
   color: #fff
 }
@@ -252,15 +252,15 @@ export default {
   position: absolute;
   display: flex;
   flex-wrap:wrap;
-  width: 680px;
+  width: 720px;
   background-color: #fff;
   border-radius: 40px 40px 0 0;
   top:-50px;
-  left: 35px;
+  left: 15px;
   box-sizing: border-box;
   padding-top: 50px;
   align-content: flex-start;
-  height: 100%;
+  height: 105%;
 }
 .icon{
   width: 25%;
