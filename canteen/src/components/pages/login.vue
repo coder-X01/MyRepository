@@ -164,7 +164,11 @@ export default {
             that.saveData(res)
             that.$router.push({path: '/home'})
           } else {
-            alert(res.data.errMsg)
+            if (!res.data.errMsg) {
+              that.myModal.errorHtml(that, res.data)
+            } else {
+              alert(res.data.errMsg)
+            }
           }
         }, function (err) { console.log(err) }, this.testURL)
       } else {
@@ -187,7 +191,11 @@ export default {
             that.saveData(res)
             that.$router.push({path: '/home'})
           } else {
-            alert(res.data.errMsg)
+            if (!res.data.errMsg) {
+              that.myModal.errorHtml(that, res.data)
+            } else {
+              alert(res.data.errMsg)
+            }
           }
         }, function (err) { console.log(err) }, this.testURL)
       }
