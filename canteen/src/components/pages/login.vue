@@ -72,7 +72,7 @@ export default {
       this.loginMode = this.$route.query.loginMode
       this.campusId = this.$route.query.campusId
       let that = this
-      if (this.loginMode === '1') {
+      if (this.loginMode === '1' && this.campusId === '110000001') {
         this.cur = '1'
         this.tip = '手机验证码登陆'
         let mapdata = {'TXCODE': 'ST0041'}
