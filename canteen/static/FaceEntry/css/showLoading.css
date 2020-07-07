@@ -1,7 +1,7 @@
 .loading-indicator {
 	height: 80px;
 	width: 80px;
-	background: url( '../img/loading.gif' );
+	background: url( '../../image/loading.gif' );
 	background-repeat: no-repeat;
 	background-position: center center;
 }

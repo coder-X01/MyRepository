@@ -9,7 +9,6 @@
  */
 
 	jQuery.fn.showLoading = function(options) {
-		
 		var indicatorID;
        		var settings = {
        			'addClass': '',
