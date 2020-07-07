@@ -167,6 +167,7 @@
 
       window.faceOpen = function () {
         debugger;
+        alert('点击触发');
         $("#uploadConfirm").css("background-color","gray");   //立刻变灰
         if(canSubmit==false){
           return;
@@ -177,7 +178,7 @@
         var cidNo = localStorage.getItem('cidNo')
         var mobile = localStorage.getItem('mobile')
         var userId = localStorage.getItem('USERID')
-        
+        alert('开始发送上传请求')
         $.ajax({
           url: '../../../B2CMainPlat_13_ZHST',
           data: {
@@ -201,14 +202,10 @@
               $(".confirm_content img").hideLoading();
               console.log(res)
               if (res.resCode == 1) {
-              this.MessageBox.alert('成功提交', '提示')    
-              //暂时效果放这里  上线放回调函数
-             
+  
               alert('成功提交', '提示');
             //  window.location.href="http://localhost:8080/category/1#/home";
-              window.location.href="http://124.127.94.47/CCBIS/zhstPage/index.html#/home";
-              
-             
+              window.location.href="http://124.127.94.47/CCBIS/zhstPage/index.html#/home";   
             } else {
              // alert(res.errorMsg)
              alert("提交失败"+res.errorMsg);
