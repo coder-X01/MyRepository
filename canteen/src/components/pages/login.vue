@@ -352,7 +352,6 @@ export default {
 }
 .box{
   font-family: PingFangSC-Regular;
-  margin-bottom: 50%;
   text-align:center;
 }
 .box .checkNum{
@@ -362,6 +361,7 @@ export default {
 .login_page{
   background-color: #fff;
   height: 100%;
-  border: 1px solid #fff
+  border: 1px solid #fff;
+  padding-bottom: 50%
 }
 </style>

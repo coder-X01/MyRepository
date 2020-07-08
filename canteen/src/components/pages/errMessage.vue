@@ -65,4 +65,13 @@ export default {
   margin-top: .6rem;
   border-radius:30px;
 }
+.errMessage{
+  font-size: 24px
+}
+.errMessage > p{
+  font-size: 20px;
+}
+.errCode > span {
+  font-size: 20px
+}
 </style>
