@@ -1,10 +1,11 @@
 <!-- 错误提示页面 -->
 <template>
-  <div>
+  <div class="errMessage">
     <!-- 返回 -->
    <!-- <GoBack></GoBack> -->
     <!-- 错误内容 -->
     <div v-html="content" class="errDiv"></div>
+    <img src="../../../static/image/error.png" alt="">
     <div class="errpageBtn" @click="goback()">返回</div>
   </div>
 
@@ -65,13 +66,7 @@ export default {
   margin-top: .6rem;
   border-radius:30px;
 }
-.errMessage{
-  font-size: 24px
-}
-.errMessage > p{
-  font-size: 20px;
-}
-.errCode > span {
-  font-size: 20px
+.errContent {
+  font-size: 24px;
 }
 </style>

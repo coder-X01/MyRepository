@@ -19,6 +19,7 @@ export default{
         this.ajax('get', params, function (res) {
           console.log(res)
           if (res.data.loginMode === '1') {
+            localStorage.setItem('loginMode', res.data.loginMode)
             that.$router.push({path: '/login', query: {'loginMode': '1', 'campusId': that.ENTRY}})
           } else {
             that.$router.push({path: '/login', query: {'loginMode': '0', 'campusId': that.ENTRY}})

@@ -14,11 +14,11 @@
         <input type="text" v-model="checkNum" class="checkNum" placeholder="验证码"/>
         <div :disabled="isClick" @click="getCode" class="getnum">{{tempTitle}}</div>
       </div>
-      <div class="change_box" style="position: relative" @click = 'toggle' v-show="loginMode=='1'">
-        <p>{{tip}}</p>
-      </div>
       <div>
         <button @click="loginTo" class="loginButton" onclick="return false;">登&nbsp;&nbsp;&nbsp;录</button>
+      </div>
+      <div class="change_box" style="position: relative" @click = 'toggle' v-show="loginMode=='1'">
+        <p>{{tip}}</p>
       </div>
     </form>
     <!-- 账号密码登陆 -->
@@ -31,11 +31,11 @@
         <span class="pwrod">&nbsp;</span>
         <input type="password" v-model="userPword" class="checkNum" placeholder="密码" @change='jiamiMima'/>
       </div>
-      <div class="change_box" style="position: relative" >
-        <p @click = 'toggle'>{{tip}}</p>
-      </div>
       <div>
         <button @click="loginTo" class="loginButton" onclick="return false;">登&nbsp;&nbsp;&nbsp;录</button>
+      </div>
+      <div class="change_box" style="position: relative" >
+        <p @click = 'toggle'>{{tip}}</p>
       </div>
     </form>
 
@@ -69,7 +69,8 @@ export default {
   methods: {
     init () {
       console.log(this.$route)
-      this.loginMode = this.$route.query.loginMode
+      // this.loginMode = this.$route.query.loginMode
+      this.loginMode = '1'
       this.campusId = this.$route.query.campusId
       let that = this
       if (this.loginMode === '1' && this.campusId === '110000001') {
@@ -278,7 +279,7 @@ export default {
 .getnum{
   position: absolute;
   background-color:#F6F4F5;
-  top:70px;
+  top:80px;
   right: 90px;
   color: #FF6600;
 }
@@ -344,11 +345,12 @@ export default {
   left: 90px;
 }
 .box p {
-  text-decoration: underline;
-  font-size: 37px;
-  color: #ff5900;
+  /* text-decoration: underline; */
+  font-size: 36px;
+  color: rgb(140,140,140);
   display: inline-block;
   margin-right: 300px;
+  /* font-weight: 900 */
 }
 .box{
   font-family: PingFangSC-Regular;
@@ -362,6 +364,6 @@ export default {
   background-color: #fff;
   height: 100%;
   border: 1px solid #fff;
-  padding-bottom: 50%
+  padding-bottom: 33%
 }
 </style>

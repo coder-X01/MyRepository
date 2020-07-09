@@ -74,8 +74,9 @@ export default{
     signOut () {
       MessageBox.confirm('确定退出?').then(action => {
         let campusId = localStorage.getItem('campusId')
+        let loginMode = localStorage.getItem('loginMode')
         localStorage.clear()
-        this.$router.push({path: '/login', query: {'campusId': campusId}})
+        this.$router.push({path: '/login', query: { 'campusId': campusId, 'loginMode': loginMode }})
       })
     },
     updataMobile () {
