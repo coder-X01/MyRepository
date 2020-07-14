@@ -4,8 +4,8 @@
     <!-- 返回 -->
    <!-- <GoBack></GoBack> -->
     <!-- 错误内容 -->
+    <img src="../../../static/image/error.png" alt="" style="margin-top: 140px;">
     <div v-html="content" class="errDiv"></div>
-    <img src="../../../static/image/error.png" alt="">
     <div class="errpageBtn" @click="goback()">返回</div>
   </div>
 
@@ -51,20 +51,26 @@ export default {
 </script>
 
 <style scoped >
+.errMessage{
+  height: 100%;
+}
 .errDiv{
   margin-top: 0;
 }
 .errpageBtn{
-  width: 70%;
-  height: 100px;
-  background: #ff5b00;
+  width: 600px;
+  height: 88px;
+  background-color:transparent;
   text-align: center;
-  line-height: 100px;
-  font-size: 36px;
-  color: white;
-  margin-left: 15%;
+  line-height: 88px;
+  font-size: 34px;
+  color: #ff5b00;
+  margin-left: 75px;
   margin-top: .6rem;
-  border-radius:30px;
+  border-radius:44px;
+  border: 1px solid #ff5b00;
+  position: absolute;
+  bottom: 300px;
 }
 .errContent {
   font-size: 24px;

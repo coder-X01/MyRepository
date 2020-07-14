@@ -44,7 +44,7 @@
         popup-transition="popup-fade">
         <slot name="qr_box1">
           <canvas id="QRCode"></canvas>
-          <span class="qrtitle">请扫二维码支付餐费</span>
+          <span class="qrtitle">请扫就餐码支付餐费</span>
         </slot>
       </mt-popup>
    </div>

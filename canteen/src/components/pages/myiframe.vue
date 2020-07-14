@@ -1,16 +1,16 @@
 <template>
   <div class="accept-container">
-    <vue-drag-resize
-      :parentLimitation="true"
-      :isResizable="false"
-      axis="y"
-      :y="200"
-      @clicked="startMove"
-      @dragstop="endMove"
-    >
-      <div class="back_box">返回</div>
-    </vue-drag-resize>
-
+    <div class="back_box"
+      ref="moveBtn"
+      @click='goBack'
+      @mousedown="down"
+      @touchstart="down"
+      @mousemove="move"
+      @touchmove="move"
+      @mouseup="end"
+      @touchend="end"
+      @touchcancel="end"
+    >返回</div>
     <!-- <span class="go-back" v-show="goBackState">返回</span> -->
     <iframe
       v-show="iframeState"
@@ -27,26 +27,27 @@
 </template>
 
 <script>
-import VueDragResize from 'vue-drag-resize'
 import { MessageBox } from 'mint-ui'
 export default {
   name: 'myframe',
-  components: {
-    VueDragResize
-  },
+
   data () {
     return {
       URL: '',
       iframeState: true,
       goBackState: true,
-      sTime: null,
-      eTime: null
+      position: {
+        y: 0
+      },
+      moveBtn: {},
+      active: 0,
+      ny: '',
+      dy: '',
+      yPum: '',
+      isShow: false
     }
   },
   methods: {
-    test () {
-      console.log('父盒子内容')
-    },
     goBack () {
       this.$router.go(-1)
     },
@@ -58,9 +59,7 @@ export default {
       let deviceHeight = document.documentElement.clientHeight
       oIframe.style.width = deviceWidth + 'px'
       oIframe.style.height = deviceHeight + 'px'
-      // console.log(this.$route.query)
       let url = this.$route.query.target
-      // let url = 'http://www.baidu.com'
       console.log(url)
       if (!url) {
         MessageBox.alert('正在开发中', '提示')
@@ -74,28 +73,59 @@ export default {
         }
       }
     },
-    startMove (evt) {
-      //   debugger;
-      this.sp = evt.currentTarget.offsetTop
-      // this.sTime=null
-      this.eTime = null
-      this.sTime = new Date()
+    down () {
+      this.flags = true
+      var touch
+      if (event.touches) {
+        touch = event.touches[0]
+      } else {
+        touch = event
+      }
+      this.position.y = touch.clientY
+      this.dy = this.moveBtn.offsetTop
     },
-    endMove () {
-      if (this.sTime != null && this.eTime == null) {
-        this.eTime = new Date()
-        var diffTime = this.eTime - this.sTime
-        // debugger;
-        if (diffTime < 2000) {
-          this.sTime = null
-          this.eTime = null
-          this.goBack()
+    move () {
+      if (this.flags) {
+        var touch
+        if (event.touches) {
+          touch = event.touches[0]
+        } else {
+          touch = event
         }
+        this.ny = touch.clientY - this.position.y
+        this.yPum = this.dy + this.ny
+        var clientHeight = document.documentElement.clientHeight
+        if (
+          this.yPum > 0 &&
+          this.yPum < clientHeight - this.moveBtn.offsetHeight
+        ) {
+          this.moveBtn.style.top = this.yPum + 'px'
+        }
+
+        // 阻止页面的滑动默认事件
+        document.addEventListener('touchmove', this.handler, {
+          passive: false
+        })
+      }
+    },
+    // 鼠标释放时候的函数
+    end () {
+      this.flags = false
+      document.addEventListener('touchmove', this.handler, {
+        passive: false
+      })
+    },
+    handler () {
+      if (this.flags) {
+        event.preventDefault()
+      } else {
+        return true
       }
     }
   },
   mounted () {
     this.init()
+    this.moveBtn = this.$refs.moveBtn
   }
 }
 </script>
@@ -103,6 +133,7 @@ export default {
 .back_box {
   position: fixed;
   right: 0;
+  top:200px;
   width: 150px;
   height: 70px;
   line-height: 70px;
