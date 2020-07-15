@@ -17,7 +17,7 @@ var ajax = function (type, params, RES, ERR, url) {
     url = this.url
   } else {
     // 同一入口
-    url = '../B2CMainPlat_13_ZHST'
+    url = '../../CCBIS/B2CMainPlat_13_ZHST'
   }
   if (localStorage.getItem('USERID') == null || localStorage.getItem('USERID') === 'undefined' || localStorage.getItem('USERID') === undefined) {
     localStorage.setItem('USERID', '')

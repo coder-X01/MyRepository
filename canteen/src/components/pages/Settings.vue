@@ -77,6 +77,10 @@ export default{
         let loginMode = localStorage.getItem('loginMode')
         localStorage.clear()
         this.$router.push({path: '/login', query: { 'campusId': campusId, 'loginMode': loginMode }})
+        history.pushState(null, null, document.URL)
+        window.addEventListener('popstate', function (e) {
+          history.pushState(null, null, document.URL)
+        }, false)
       })
     },
     updataMobile () {

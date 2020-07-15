@@ -27,9 +27,9 @@ import myModal from './methods/myModal.js'
 Vue.prototype.myModal = myModal
 
 // 引入vconsole
-import Vconsole from 'vconsole'
-const vConsole = new Vconsole()
-Vue.use(vConsole)
+// import Vconsole from 'vconsole'
+// const vConsole = new Vconsole()
+// Vue.use(vConsole)
 
 /* eslint-disable no-new */
 new Vue({
@@ -38,19 +38,15 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
-
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.localToken)) {
-    // 这里判断用户是否登录，验证本地存储是否有token
-    if (!localStorage.localToken) { // 判断当前的token是否存在
-      next({
-        path: '/login',
-        query: { redirect: to.fullPath }
-      })
+  if (to.path === '/login' || to.path === '/noLogin') {
+    next()
+  } else {
+    let token = localStorage.getItem('localToken')
+    if (token === 'null' || token === '') {
+      next('/login')
     } else {
       next()
     }
-  } else {
-    next() // 确保一定要调用 next()
   }
 })

@@ -1,10 +1,17 @@
 <!-- 错误提示页面 -->
 <template>
   <div class="errMessage">
+    <div class="head_box">
+      <mt-header title="错误">
+        <router-link to="/home" slot="left">
+          <mt-button icon="back"></mt-button>
+        </router-link>
+      </mt-header>
+    </div>
     <!-- 返回 -->
    <!-- <GoBack></GoBack> -->
     <!-- 错误内容 -->
-    <img src="../../../static/image/error.png" alt="" style="margin-top: 140px;">
+    <img src="../../../static/image/error.png" alt="" style="margin: 140px 0 40px 0;">
     <div v-html="content" class="errDiv"></div>
     <div class="errpageBtn" @click="goback()">返回</div>
   </div>
@@ -39,7 +46,7 @@ export default {
   mounted () {
     this.content = this.$route.params.content
     if (this.content === undefined || this.content === '') {
-      this.content = "<p style='font-size:18px;color:#aeaeae;margin-top:30%;text-align: center'>页面掉失，请点击返回按钮，重新登录</p>"
+      this.content = "<p style='font-size:18px;color:#aeaeae;margin-top:10%;text-align: center'>页面掉失，请点击返回按钮，重新登录</p>"
     } else {
       this.$nextTick(function () {
         var errbtn = document.getElementsByClassName('errbtn')[0]
@@ -51,6 +58,12 @@ export default {
 </script>
 
 <style scoped >
+.mint-header{
+  background-color: #ff5b00;
+  height: 90px;
+  line-height: 90px;
+  font-size: 34px;
+}
 .errMessage{
   height: 100%;
 }
@@ -73,6 +86,6 @@ export default {
   bottom: 300px;
 }
 .errContent {
-  font-size: 24px;
+  font-size: 32px;
 }
 </style>
