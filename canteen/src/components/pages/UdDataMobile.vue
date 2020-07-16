@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="undatamobile">
       <div class="head_box">
         <mt-header title="更改手机号">
           <router-link to="/settings" slot="left">
@@ -8,17 +8,17 @@
         </mt-header>
       </div>
     <form class="box">
-      <div style="position: relative">
-        <span class="mobile"></span>
-        <input type="text" v-model="mobilePhone" maxlength="11" placeholder="手机号"/>
+      <div style="position: relative" class="mobile_box">
+        <span class="mobile">新手机号:</span>
+        <input type="text" v-model="mobilePhone" maxlength="11"/>
       </div>
-      <div style="position: relative">
-        <span class="yzm">&nbsp;</span>
-        <input type="text" v-model="checkNum" class="checkNum" placeholder="验证码"/>
+      <div style="position: relative" class="mobile_box">
+        <span class="yzm">验证码:</span>
+        <input type="text" v-model="checkNum" class="checkNum"/>
         <div :disabled="isClick" @click="getCode" class="getnum">{{tempTitle}}</div>
       </div>
       <div>
-        <button @click="next" class="loginButton" onclick="return false;">完&nbsp;&nbsp;&nbsp;成</button>
+        <button @click="next" class="loginButton" onclick="return false;">修改手机号</button>
       </div>
     </form>
   </div>
@@ -100,6 +100,10 @@ export default{
 }
 </script>
 <style scoped="scoped">
+.undatamobile{
+  height: 100%;
+  background-color: #fff;
+}
 .mint-header{
   background-color: #ff5b00;
   height: 90px;
@@ -117,21 +121,21 @@ export default{
 }
 .getnum{
   position: absolute;
-  background-color:#F6F4F5;
-  top:70px;
-  right: 90px;
+  top:55px;
+  right: 50px;
   color: #FF6600;
+  font-size: 26px;
 }
 .box .loginButton{
-  margin-top: 20px;
-  width: 600px;
+  margin-top: 120px;
+  width: 485px;
   background-color: #FF6600;
   color: white;
-  height: 100px;
-  border-radius: 56px;
+  height: 70px;
+  border-radius: 20px;
+  font-size: 26px;
 }
 .yzm{
-  background: url("../../../static/image/yzm.png");
   top:65px;
   background-size: 100% 100%;
 }
@@ -141,14 +145,12 @@ export default{
   background-size: 100% 100%;
 }
 .box input{
-  width: 600px;
+  width: 500px;
   margin-top: 20px;
-  height: 100px;
-  text-indent: 100px;
+  height: 75px;
   border: none;
-  border-radius: 20px;
-  background-color: #fff;
-  font-size: 36px;
+  font-size: 26px;
+  outline-style: none;
 }
 .box button{
   border: none;
@@ -156,10 +158,13 @@ export default{
 }
 .box span{
   display: inline-block;
-  width: 64px;
-  height: 64px;
-  position: absolute;
-  left: 90px;
+  font-size: 26px;
+  margin-left: 20px;
+  color: #9d9d9d
+}
+.mobile_box{
+  border-bottom: 1px solid #e5e5e5;
+  margin: 0 40px;
 }
 .box p {
   text-decoration: underline;
@@ -170,11 +175,11 @@ export default{
 }
 .box{
   font-family: PingFangSC-Regular;
-  margin-top: 50%;
+  margin-top: 20%;
   text-align:center;
 }
 .box .checkNum{
   margin-top: 42px;
-  width: 600px
+  width: 480px
 }
 </style>

@@ -172,7 +172,6 @@
       });
 
       function faceOpen() {
-        debugger;
        // alert('点击触发');
         $("#uploadConfirm").css("background-color","gray");   //立刻变灰
         if(canSubmit==false){
@@ -211,8 +210,8 @@
               if (res.resCode == 1) {
   
               alert('人脸上传成功', '提示');
-            //  window.location.href="http://localhost:8080/category/1#/home";
-              window.location.href="http://124.127.94.47/CCBIS/zhstPage/index.html#/home";   
+              window.location.href="http://124.127.94.47/P1StaRes/zhstPage/index.html#/home";
+              // window.location.href="http://103.126.125.55/P1StaRes/zhstPage/index.html#/home";
             } else {
              // alert(res.errorMsg)
              alert("人脸上传失败"+res.errorMsg);
