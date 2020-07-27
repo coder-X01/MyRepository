@@ -13,6 +13,7 @@ export default{
     init () {
       let token = localStorage.getItem('localToken')
       this.ENTRY = this.$route.query.ENTRY
+      !this.ENTRY ? this.ENTRY = '' : this.ENTRY = this.ENTRY
       let that = this
       if (!token) {
         let params = {'TXCODE': 'ST0024', 'LOGFLAG': 0, 'ENTRYID': this.ENTRY}
@@ -20,9 +21,12 @@ export default{
           console.log(res)
           if (res.data.loginMode === '1') {
             localStorage.setItem('loginMode', res.data.loginMode)
-            that.$router.push({path: '/login', query: {'loginMode': '1', 'campusId': that.ENTRY}})
+            localStorage.setItem('campusId', that.ENTRY)
+            that.$router.push({path: '/login'})
           } else {
-            that.$router.push({path: '/login', query: {'loginMode': '0', 'campusId': that.ENTRY}})
+            localStorage.setItem('loginMode', res.data.loginMode)
+            localStorage.setItem('campusId', that.ENTRY)
+            that.$router.push({path: '/login'})
           }
         }, function (err) { console.log(err) }, this.testURL)
       } else {

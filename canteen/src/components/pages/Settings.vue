@@ -25,12 +25,12 @@
         <span class="data">{{mobile}}</span>
       </div>
     </div>
-    <div class="back_box">
+    <div class="back_box" v-if="Isshow">
       <div class="back_buttom">
         <div @click="updataMobile">更改手机号</div>
       </div>
     </div>
-    <div class="back_box">
+    <div class="back_box" v-if="Isshow">
       <div class="back_buttom">
         <div @click="GoSubsidy" :link='link'>更改密码</div>
       </div>
@@ -51,7 +51,8 @@ export default{
       mobile: '',
       campusName: '',
       custName: '',
-      link: ''
+      link: '',
+      Isshow: false
     }
   },
   methods: {
@@ -61,10 +62,12 @@ export default{
       let campusName = localStorage.getItem('campusName')
       let custName = localStorage.getItem('custName')
       this.link = localStorage.getItem('xgmmUrl')
+      let campusId = localStorage.getItem('campusId')
       this.cidNo = cidNo
       this.mobile = mobile
       this.campusName = campusName
       this.custName = custName
+      campusId === '110000001' ? this.Isshow = true : this.Isshow = false
     },
     GoSubsidy (e) {
       let target = e.currentTarget.getAttribute('link')
@@ -73,10 +76,17 @@ export default{
     },
     signOut () {
       MessageBox.confirm('确定退出?').then(action => {
-        let campusId = localStorage.getItem('campusId')
         let loginMode = localStorage.getItem('loginMode')
+        let campusId = localStorage.getItem('campusId')
         localStorage.clear()
-        this.$router.push({path: '/login', query: { 'campusId': campusId, 'loginMode': loginMode }})
+        if (loginMode === '1') {
+          localStorage.setItem('loginMode', loginMode)
+          localStorage.setItem('campusId', campusId)
+          this.$router.push({path: '/login'})
+        } else {
+          localStorage.setItem('loginMode', loginMode)
+          this.$router.push({path: '/login'})
+        }
         history.pushState(null, null, document.URL)
         window.addEventListener('popstate', function (e) {
           history.pushState(null, null, document.URL)

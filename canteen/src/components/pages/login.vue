@@ -69,9 +69,8 @@ export default {
   methods: {
     init () {
       console.log(this.$route)
-      // this.loginMode = this.$route.query.loginMode
-      this.loginMode = '1'
-      this.campusId = this.$route.query.campusId
+      this.loginMode = localStorage.getItem('loginMode')
+      this.campusId = localStorage.getItem('campusId')
       let that = this
       if (this.loginMode === '1' && this.campusId === '110000001') {
         this.cur = '1'

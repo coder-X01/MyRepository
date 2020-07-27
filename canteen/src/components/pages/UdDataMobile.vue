@@ -128,12 +128,12 @@ export default{
 }
 .box .loginButton{
   margin-top: 120px;
-  width: 485px;
+  width: 80%;
   background-color: #FF6600;
-  color: white;
-  height: 70px;
+  color: #333;
+  height: 80px;
   border-radius: 20px;
-  font-size: 26px;
+  font-size: 28px;
 }
 .yzm{
   top:65px;

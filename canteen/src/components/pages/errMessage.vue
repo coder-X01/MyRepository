@@ -11,7 +11,7 @@
     <!-- 返回 -->
    <!-- <GoBack></GoBack> -->
     <!-- 错误内容 -->
-    <img src="../../../static/image/error.png" alt="" style="margin: 140px 0 40px 0;">
+    <img src="../../../static/image/error.png" alt="" style="margin: 100px 0 40px 0;">
     <div v-html="content" class="errDiv"></div>
     <div class="errpageBtn" @click="goback()">返回</div>
   </div>
@@ -82,8 +82,7 @@ export default {
   margin-top: .6rem;
   border-radius:44px;
   border: 1px solid #ff5b00;
-  position: absolute;
-  bottom: 300px;
+  margin-top: 80px;
 }
 .errContent {
   font-size: 32px;
